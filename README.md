@@ -43,9 +43,10 @@ The CSC username only has to be specified if it does not match your local userna
 
 ### Backup script
 
-Download the backup script to the `.allas_bu_confs` directory:
+Download the backup script to the `.allas_bu_confs` directory and make it executable:
 
     wget https://raw.githubusercontent.com/paajasan/Allas-backup/main/backup_to_allas.sh -P $HOME/.allas_bu_confs/
+    chmod u+x $HOME/.allas_bu_confs/backup_to_allas.sh
 
 Next modify the config file that the setup script made, e.g. with
 
@@ -67,8 +68,6 @@ At this point make sure that the destination buckets exist. The backup script wi
 You can run the script manually as
 
     $HOME/.allas_bu_confs/backup_to_allas.sh
-
-If it does not run make sure it is set to executable.
 
 Finally to make this script run automatically every day modify the user crontab with
 
