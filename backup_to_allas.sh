@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 function tee_with_timestamps () {
     # Modified from https://stackoverflow.com/questions/39239379/add-timestamp-to-teed-output-but-not-original-output
@@ -17,8 +18,8 @@ function aquire_lock () {
     iter=0
     maxiter=60
     sleeptime=60
-    while -f $lockfile; do
-        read pid < cat $lockfile
+    while [ -f $lockfile ]; do
+        read pid < $lockfile
         if ps -p $pid > /dev/null; then
             if [[ iter -gt maxiter ]]; then
                 echo "Failed to aquire lock after $iter minutes" | tee_with_timestamps $logfile
