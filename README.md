@@ -11,6 +11,7 @@ The command here use the S3 protocol, unlike the default Swift used in most comm
 1. These backups do **NOT** retain history. If you delete a file locally, it will be deleted on the remote during the next backup.
 2. The scripts save access tokens in a plaintext file, so anyone with access to you home directory can access and modify the data in allas.
     - You can, however, revoke the access rights to any project at any time.
+3. Anything in the destination that does not match a local file will be deleted or modified. In most cases it is best to just start with a fresh bucket.
 
 
 
@@ -58,7 +59,7 @@ Which will backup the local directory `/wrk/user/project1` to `allas:backup` wit
 
 Note that as the project on the first column is same for both lines, the third column has to differ. If the endpoints are set to be the same, the second command would end up overwriting the first.
 
-At this point make sure that the destination buckets exist. The backup script will NOT make them automatically. Also make sure that they are empty as **the script will delete everything in the destination that does not match the local files.**
+At this point make sure that the destination buckets exist. The backup script will NOT make them automatically. Easiest way is using the GUI at [pouta.csc.fi](https://pouta.csc.fi). The system might require the bucket names to be unique, so something like "backup_firstname_project" might be a good idea. If the destinations exist, make sure that they are empty as **the script will delete everything in the destination that does not match the local files.**
 
 You can run the script manually as
 
