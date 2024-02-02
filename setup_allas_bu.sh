@@ -16,6 +16,9 @@ mkdir -p ${HOME}/.allas_bu_confs
 # Make sure only the owner (or superusers) can access the key directory
 chmod go-rwx ${HOME}/.allas_bu_confs/
 
+read -s -p "CSC password: " pwd
+echo
+
 for p in ${project[@]}; do
     if [ -f ${HOME}/.allas_bu_confs/project_$p ]; then
         echo ${HOME}/.allas_bu_confs/project_$p "exists, skipping."
@@ -23,20 +26,22 @@ for p in ${project[@]}; do
         continue
     fi
 
-    . allas_conf -u ${user} -p project_$p -m s3cmd
+    OS_PASSWORD=$pwd bash allas_conf -u ${user} -p project_$p -m s3cmd -f
 
-    mv ${HOME}/.s3conf ${HOME}/.allas_bu_confs/project_$p
+    echo mv ${HOME}/.s3cfg ${HOME}/.allas_bu_confs/project_$p
+    mv ${HOME}/.s3cfg ${HOME}/.allas_bu_confs/project_$p
+
     # Make sure only the owner (or superusers) can access the key file
     chmod go-rwx ${HOME}/.allas_bu_confs/project_$p
 done
 
 
-if [ -f ${HOME}/.allas_bu_confs/config ]; then
+if ! [ -f ${HOME}/.allas_bu_confs/config ]; then
 
-cat > ${HOME}/.allas_bu_confs/config << __EOF__
-20012345 /wrk/user/project1  backup
-20012346 /wrk/user/project2  backup
-__EOF__
+
+    for p in ${project[@]}; do
+        echo $p /wrk/$(whoami)/project_$p backup
+    done | cat > ${HOME}/.allas_bu_confs/config
 
     echo "Wrote example config to ${HOME}/.allas_bu_confs/config"
 

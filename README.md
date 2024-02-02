@@ -19,7 +19,9 @@ The first one is from CSC to set up a connection to Allas (i.e. not written by m
 
 Next, modify the options on the first few lines of setup_allas_bu.sh to set the CSC user (unless you have the same username on your desktop) and each project, which you will want to run these backups for.
 
-The script makes conf files with the authentication keys for each project, and moves them to `$HOME/.allas_bu_confs/project_<number>`. It also make an example `conf` file which you should modify in the next step.
+The script makes conf files with the authentication keys for each project, and moves them to `$HOME/.allas_bu_confs/project_<number>`. It also make an example `conf` file which you should modify in the next step. Run it with
+
+    bash setup_allas_bu.sh
 
 ### Backup script
 
@@ -31,7 +33,7 @@ Next modify the config file that the setup script made, e.g. with
 
     nano ~/.allas_bu_confs/config
 
-The config is a simple text file with three whitespace separated columns. The first column gives the project number, second column the source directory and third column the target bucket. For example the first line of the example is 
+The config is a simple text file with three whitespace separated columns. The first column gives the project number, second column the source directory (i.e. local directory to be backed up) and third column the target bucket (i.e. target detination where the backup will be made). For example the first line of the example is 
 
     20012345 /wrk/user/project1 backup
 
@@ -40,6 +42,7 @@ Which will backup the local directory `/wrk/user/project1` to `allas:backup` wit
     20012345 /wrk/user/project1/thing1 backup1
     20012345 /wrk/user/project4/thing2 backup2
 
+Note that as the project on the first column is same for both lines, the third column has to differ. If the endpoints are set to be the same, the second command would end up overwriting the first.
 
 Finally to make this script run automatically every day modify the user crontab with
 
