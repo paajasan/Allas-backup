@@ -32,6 +32,9 @@ The script makes conf files with the authentication keys for each project, and m
 
     bash setup_allas_bu.sh
 
+It will first ask for your CSC password. If you mistype it, stop the script with `Ctrl-C` and remove the files in `$HOME/.allas_bu_confs/`.
+
+
 If you ever want to remove access rights for the authentication keys, run 
 
     . allas_conf --s3remove [-u user]
