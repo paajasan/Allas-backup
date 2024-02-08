@@ -21,7 +21,7 @@ The command here use the S3 protocol, unlike the default Swift used in most comm
 
 ### Dependencies
 
-At least on university Cubbli it should be enough to install openstack. Run 
+At least on university Cubbli it should be enough to install the openstack library for Python. Run 
 
     pip install openstackclient
 
