@@ -1,6 +1,12 @@
 #!/usr/bin/env python
 import pathlib
 
+"""
+Run this file if you did the setup already with the s3cmd and want too switch to using rclone. If setting up from scratch now, ignore this file.
+
+This will copy all old confs to a file with .bu suffix and make new confs with the old name.
+"""
+
 
 def copy_conf(infile, outfile):
     conf = {}
