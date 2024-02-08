@@ -69,7 +69,7 @@ After the keys are removed you can just delete the `$HOME/.allas_bu_confs/` fold
 
 Download the backup script to the `.allas_bu_confs` directory and make it executable:
 
-    wget https://raw.githubusercontent.com/paajasan/Allas-backup/main/backup_to_allas.sh -P $HOME/.allas_bu_confs/
+    wget https://raw.githubusercontent.com/paajasan/Allas-backup/main/backup_to_allas.sh -O $HOME/.allas_bu_confs/backup_to_allas.sh
     chmod u+x $HOME/.allas_bu_confs/backup_to_allas.sh
 
 
