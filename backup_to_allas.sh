@@ -51,8 +51,8 @@ fi
 
 while read -r line || [[ -n "$line" ]]; do
     arr=($line)
-    echo Running: rclone -l -v --config ~/.allas_bu_confs/project_${arr[0]} sync ${arr[1]} s3allas:${arr[2]} | tee_with_timestamps $logfile
-    rclone -l -v --config ~/.allas_bu_confs/project_${arr[0]} sync ${arr[1]} s3allas:${arr[2]} 2>&1 | tee_with_timestamps $logfile
+    echo Running: rclone -l --config ~/.allas_bu_confs/project_${arr[0]} sync ${arr[1]} s3allas:${arr[2]} | tee_with_timestamps $logfile
+    rclone -l --config ~/.allas_bu_confs/project_${arr[0]} sync ${arr[1]} s3allas:${arr[2]} 2>&1 | tee_with_timestamps $logfile
 done < ~/.allas_bu_confs/config
 
 rm $lockfile
