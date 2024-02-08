@@ -14,6 +14,7 @@ The command here use the S3 protocol, unlike the default Swift used in most comm
 3. Anything in the destination that does not match a local file will be deleted or modified. In most cases it is best to just start with a fresh bucket.
 4. The backup script uses a lockfile, so you should not be able to accidentally run multiple copies of it at the same time. If the lockfile is not released in the first 10 minutes, the script stops.
 5. Symbolic links will simply be ignored
+6. The quota for any single project is 10 TB by default. If you have more data, you'll need to either split it between multiple projects or ask CSC to increase the quota.
 
 
 ## Usage
