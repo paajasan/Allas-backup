@@ -51,8 +51,10 @@ fi
 
 while read -r line || [[ -n "$line" ]]; do
     arr=($line)
-    echo Running s3cmd -c ~/.allas_bu_confs/project_${arr[0]} --no-progress sync ${arr[1]} s3://${arr[2]} | tee_with_timestamps $logfile
-    s3cmd -c ~/.allas_bu_confs/project_${arr[0]} --no-progress sync ${arr[1]} s3://${arr[2]} 2>&1 | tee_with_timestamps $logfile
+    echo Running: rclone --config ~/.allas_bu_confs/project_${arr[0]} sync ${arr[1]} s3allas:${arr[2]} | tee_with_timestamps $logfile
+    rclone --config ~/.allas_bu_confs/project_${arr[0]} sync ${arr[1]} s3allas:${arr[2]} 2>&1 | tee_with_timestamps $logfile
 done < ~/.allas_bu_confs/config
 
 rm $lockfile
+
+echo All done for now! | tee_with_timestamps $logfile

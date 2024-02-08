@@ -11,6 +11,32 @@ if ! [ -f allas_conf ]; then
     exit 1
 fi
 
+function copy_config () {
+    infile=$1
+    outfile=$2
+
+    python <<__EOF__
+conf = {}
+with open("${infile}") as fi:
+    for line in fi:
+        if line.startswith("["):
+            continue
+        parts = line.split("=")
+        conf[parts[0].strip()] = parts[1].strip()
+
+with open("${outfile}", "w") as fo:
+    fo.write("[s3allas]\n")
+    fo.write("type = s3\n")
+    fo.write("provider = Other\n")
+    fo.write("env_auth = false\n")
+    fo.write(f"access_key_id = {conf['access_key']}\n")
+    fo.write(f"secret_access_key = {conf['secret_key']}\n")
+    fo.write("endpoint = a3s.fi\n")
+    fo.write("acl = private\n")
+
+__EOF__
+}
+
 
 mkdir -p ${HOME}/.allas_bu_confs
 # Make sure only the owner (or superusers) can access the key directory
@@ -29,7 +55,7 @@ for p in ${project[@]}; do
     OS_PASSWORD=$pwd bash allas_conf -u ${user} -p project_$p -m s3cmd -f
 
     echo mv ${HOME}/.s3cfg ${HOME}/.allas_bu_confs/project_$p
-    mv ${HOME}/.s3cfg ${HOME}/.allas_bu_confs/project_$p
+    copy_config ${HOME}/.s3cfg ${HOME}/.allas_bu_confs/project_$p
 
     # Make sure only the owner (or superusers) can access the key file
     chmod go-rwx ${HOME}/.allas_bu_confs/project_$p
